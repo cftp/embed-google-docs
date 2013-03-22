@@ -52,7 +52,7 @@ function cftp_embed_handler_googledrive( $matches, $attr, $url, $rawattr ) {
 	return "<iframe width='{$width}' height='{$height}' frameborder='0' src='{$url}' {$extra}></iframe>";
 }
 
-function wp_embed_handler_googlemaps( $matches, $attr, $url, $rawattr ) {
+function cftp_embed_handler_googlemaps( $matches, $attr, $url, $rawattr ) {
 	if ( !empty($rawattr['width']) && !empty($rawattr['height']) ) {
 		$width  = (int) $rawattr['width'];
 		$height = (int) $rawattr['height'];
