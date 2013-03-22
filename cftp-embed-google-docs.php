@@ -1,9 +1,9 @@
 <?php 
 /*
-Plugin Name: Embed Google Docs
+Plugin Name: Embed Google Docs & Maps
 Plugin URI:  https://github.com/cftp/embed-google-docs
-Description: Easily embed Google Docs into your post content by pasting the URL on its own line.
-Version:     1.0
+Description: Easily embed Google Docs and Google Maps into your post content by pasting the URL on its own line.
+Version:     1.1
 Author:      Code for the People
 Author URI:  http://codeforthepeople.com/ 
 
@@ -52,8 +52,19 @@ function cftp_embed_handler_googledrive( $matches, $attr, $url, $rawattr ) {
 	return "<iframe width='{$width}' height='{$height}' frameborder='0' src='{$url}' {$extra}></iframe>"; 
 }
 
-function init_cftp_embed_handler_googledrive() {
+function wp_embed_handler_googlemaps( $matches, $attr, $url, $rawattr ) { 
+	if ( !empty($rawattr['width']) && !empty($rawattr['height']) ) { 
+		$width  = (int) $rawattr['width']; 
+		$height = (int) $rawattr['height']; 
+	} else { 
+		list( $width, $height ) = wp_expand_dimensions( 425, 326, $attr['width'], $attr['height'] ); 
+	} 
+	return "<iframe width='{$width}' height='{$height}' frameborder='0' scrolling='no' marginheight='0' marginwidth='0' src='{$url}&output=embed'></iframe>"; 
+} 
+
+function init_cftp_embed_handler_google() {
 	wp_embed_register_handler( 'cftpgoogledocs', '#https?://docs.google.com/(document|spreadsheet|presentation)/.*#i', 'cftp_embed_handler_googledrive' );
+	wp_embed_register_handler( 'cftpgooglemaps', '#https?://maps.google.com/(maps)?.+#i', 'cftp_embed_handler_googlemaps' );
 }
 
-add_action( 'init', 'init_cftp_embed_handler_googledrive' );
+add_action( 'init', 'init_cftp_embed_handler_google' );
