@@ -31,36 +31,36 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
  
-function cftp_embed_handler_googledrive( $matches, $attr, $url, $rawattr ) { 
-	if ( !empty($rawattr['width']) && !empty($rawattr['height']) ) { 
-		$width  = (int) $rawattr['width']; 
-		$height = (int) $rawattr['height']; 
-	} else { 
-		list( $width, $height ) = wp_expand_dimensions( 425, 344, $attr['width'], $attr['height'] ); 
-	} 
+function cftp_embed_handler_googledrive( $matches, $attr, $url, $rawattr ) {
+	if ( !empty($rawattr['width']) && !empty($rawattr['height']) ) {
+		$width  = (int) $rawattr['width'];
+		$height = (int) $rawattr['height'];
+	} else {
+		list( $width, $height ) = wp_expand_dimensions( 425, 344, $attr['width'], $attr['height'] );
+	}
 
-	$extra = ''; 
-	if ( $matches[1] == 'spreadsheet' ) { 
-		$url .= '&widget=true'; 
-	} elseif ( $matches[1] == 'document' ) { 
-		$url .= '?embedded=true'; 
-	} elseif ( $matches[1] == 'presentation' ) { 
-		$url = str_replace( '/pub', '/embed', $url); 
-		$extra = 'allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"'; 
-	} 
+	$extra = '';
+	if ( $matches[1] == 'spreadsheet' ) {
+		$url .= '&widget=true';
+	} elseif ( $matches[1] == 'document' ) {
+		$url .= '?embedded=true';
+	} elseif ( $matches[1] == 'presentation' ) {
+		$url = str_replace( '/pub', '/embed', $url);
+		$extra = 'allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"';
+	}
 
-	return "<iframe width='{$width}' height='{$height}' frameborder='0' src='{$url}' {$extra}></iframe>"; 
+	return "<iframe width='{$width}' height='{$height}' frameborder='0' src='{$url}' {$extra}></iframe>";
 }
 
-function wp_embed_handler_googlemaps( $matches, $attr, $url, $rawattr ) { 
-	if ( !empty($rawattr['width']) && !empty($rawattr['height']) ) { 
-		$width  = (int) $rawattr['width']; 
-		$height = (int) $rawattr['height']; 
-	} else { 
-		list( $width, $height ) = wp_expand_dimensions( 425, 326, $attr['width'], $attr['height'] ); 
-	} 
-	return "<iframe width='{$width}' height='{$height}' frameborder='0' scrolling='no' marginheight='0' marginwidth='0' src='{$url}&output=embed'></iframe>"; 
-} 
+function wp_embed_handler_googlemaps( $matches, $attr, $url, $rawattr ) {
+	if ( !empty($rawattr['width']) && !empty($rawattr['height']) ) {
+		$width  = (int) $rawattr['width'];
+		$height = (int) $rawattr['height'];
+	} else {
+		list( $width, $height ) = wp_expand_dimensions( 425, 326, $attr['width'], $attr['height'] );
+	}
+	return "<iframe width='{$width}' height='{$height}' frameborder='0' scrolling='no' marginheight='0' marginwidth='0' src='{$url}&output=embed'></iframe>";
+}
 
 function init_cftp_embed_handler_google() {
 	wp_embed_register_handler( 'cftpgoogledocs', '#https?://docs.google.com/(document|spreadsheet|presentation)/.*#i', 'cftp_embed_handler_googledrive' );
