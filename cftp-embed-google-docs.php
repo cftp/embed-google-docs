@@ -63,8 +63,8 @@ function cftp_embed_handler_googlemaps( $matches, $attr, $url, $rawattr ) {
 }
 
 function init_cftp_embed_handler_google() {
-	wp_embed_register_handler( 'cftpgoogledocs', '#https?://docs.google.com/(document|spreadsheet|presentation)/.*#i', 'cftp_embed_handler_googledrive' );
-	wp_embed_register_handler( 'cftpgooglemaps', '#https?://maps.google.com/(maps)?.+#i', 'cftp_embed_handler_googlemaps' );
+	wp_embed_register_handler( 'cftpgoogledocs', '#https?://docs.google.(com|co\.uk)/(document|spreadsheet|presentation)/.*#i', 'cftp_embed_handler_googledrive' );
+	wp_embed_register_handler( 'cftpgooglemaps', '#https?://maps.google.(com|co\.uk)/(maps)?.+#i', 'cftp_embed_handler_googlemaps' );
 }
 
 add_action( 'init', 'init_cftp_embed_handler_google' );
